@@ -16,18 +16,6 @@ function makeEmptyGrid() {
     () => Array(GRID_SIZE).fill(DEFAULT_COLOR)
   )
 }
-function paint(row, col) {
-  // grid.map(r => r.slice()) builds a new outer array containing
-  // shallow copies of each inner row. The result shares zero references
-  // with the old grid, so React detects the change and re-renders.
-  const next = grid.map(r => r.slice())
-
-  // Update only the cell that was clicked.
-  next[row][col] = currentColor
-
-  // Hand React the new grid.
-  setGrid(next)
-}
 
 
 
@@ -46,7 +34,18 @@ function App() {
 
 
 
+  function paint(row, col) {
+    // grid.map(r => r.slice()) builds a new outer array containing
+    // shallow copies of each inner row. The result shares zero references
+    // with the old grid, so React detects the change and re-renders.
+    const next = grid.map(r => r.slice())
 
+    // Update only the cell that was clicked.
+    next[row][col] = currentColor
+
+    // Hand React the new grid.
+    setGrid(next)
+  }
 
   return (<div className='app'>
     <div className="tools">
