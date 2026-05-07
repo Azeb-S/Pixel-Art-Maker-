@@ -11,10 +11,25 @@ function makeEmptyGrid() {
   )
 }
 
+
+
 function App() {
-  const [grid, SetGrid] = useState(makeEmptyGrid)
+  const [grid, setGrid] = useState(makeEmptyGrid)
 
   const [currentColor, setCurrentColor] = useState('#1a1a1a')
+
+  function paint(row, col) {
+  // grid.map(r => r.slice()) builds a new outer array containing
+  // shallow copies of each inner row. The result shares zero references
+  // with the old grid, so React detects the change and re-renders.
+  const next = grid.map(r => r.slice())
+
+  // Update only the cell that was clicked.
+  next[row][col] = currentColor
+
+  // Hand React the new grid.
+  setGrid(next)
+}
 
   return (<div className='pixel-art'>
     <h1>Pixel Art Editor</h1>
@@ -29,7 +44,8 @@ function App() {
             key={`${r}-${c}`}
             className='pixel'
             style={{ background: color }}
-            areal-label={`Pixel ${r}, ${c}`}
+            onClick={() => paint(r,c)}
+            aria-label={`Pixel ${r}, ${c}`}
           />
         ))
       )}
