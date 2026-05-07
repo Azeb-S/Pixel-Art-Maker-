@@ -72,4 +72,27 @@
     padding: 4px;
     background-color: #1a1a1a;
     color: white;
+    margin-top: 20px;
+}
+
+.app {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.tools {
+  width: 250px;
+}
+
+.pixel-grid {
+  display: grid;
+  width: 640px;
+  height: 640px;
+}
+
+.pixel {
+  border: 1px solid #ccc;
+  padding: 0;
 }

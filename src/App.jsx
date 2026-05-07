@@ -47,7 +47,8 @@ function App() {
     setGrid(next)
   }
 
-  return (<div className='pixel-art'>
+  return (<div className='app'>
+        <div className="tools">
     <h1>Pixel Art Editor</h1>
 
     <label className="pixel-tools">
@@ -81,7 +82,7 @@ function App() {
 
 
 
-
+      </div>
 
     <div className='pixel-grid'
       style={{ gridTemplateColumns: `repeat(${GRID_SIZE}, 1fr)` }}
