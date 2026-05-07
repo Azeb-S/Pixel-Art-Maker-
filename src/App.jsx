@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './App.css'
 
 const GRID_SIZE = 16
-const DEFAULT_COLOR = '#ffffff' // white unpainted
+const DEFAULT_COLOR = '#000000' // black unpainted
 
 // Defined at module scope, outside the App component
 const PRESETS = [
@@ -29,7 +29,7 @@ function App() {
     // makeEmptyGrid returns a brand-new 2D array of default colors.
     // React sees the new array as a different reference than the old grid,
     // which triggers the re-render.
-    setGrid(makeEmptyGrid())
+    setGrid(grid)
   }
 
 
@@ -41,7 +41,7 @@ function App() {
     const next = grid.map(r => r.slice())
 
     // Update only the cell that was clicked.
-    next[row][col] = currentColor
+    next[row][col] = DEFAULT_COLOR
 
     // Hand React the new grid.
     setGrid(next)
@@ -94,7 +94,7 @@ function App() {
             key={`${r}-${c}`}
             className='pixel'
             style={{ background: color }}
-            onClick={() => paint(r, c)}
+            onClick={() => paint(3, c)}
             aria-label={`Pixel ${r}, ${c}`}
           />
         ))
