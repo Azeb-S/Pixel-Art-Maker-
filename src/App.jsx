@@ -25,6 +25,14 @@ function App() {
   const [grid, setGrid] = useState(makeEmptyGrid)
 
   const [currentColor, setCurrentColor] = useState('#1a1a1a')
+  function clearGrid() {
+    // makeEmptyGrid returns a brand-new 2D array of default colors.
+    // React sees the new array as a different reference than the old grid,
+    // which triggers the re-render.
+    setGrid(makeEmptyGrid())
+  }
+
+
 
   function paint(row, col) {
     // grid.map(r => r.slice()) builds a new outer array containing
@@ -41,7 +49,7 @@ function App() {
 
   return (<div className='pixel-art'>
     <h1>Pixel Art Editor</h1>
-   
+
     <label className="pixel-tools">
       Color
       <input
@@ -51,23 +59,27 @@ function App() {
         // On every change, push the new hex color back into state
         onChange={e => setCurrentColor(e.target.value)}
       />
+
     </label>
 
-      {/* Inside the JSX, beside the color picker: */}
-<div className="pixel-presets">
-  {PRESETS.map(c => (
-    <button
-      key={c}
-      // Add a 'selected' class when this swatch matches the current color
-      className={'preset' + (c === currentColor ? ' selected' : '')}
-      // Set this button's background to the swatch's hex value
-      style={{ background: c }}
-      // Clicking a swatch updates the current color, just like the picker does
-      onClick={() => setCurrentColor(c)}
-      aria-label={`Color ${c}`}
-    />
-  ))}
-</div>
+    <div className="pixel-presets">
+      {PRESETS.map(c => (
+        <button
+          key={c}
+          // Add a 'selected' class when this swatch matches the current color
+          className={'preset' + (c === currentColor ? ' selected' : '')}
+          // Set this button's background to the swatch's hex value
+          style={{ background: c }}
+          // Clicking a swatch updates the current color, just like the picker does
+          onClick={() => setCurrentColor(c)}
+          aria-label={`Color ${c}`}
+        />
+      ))}
+    </div>
+    <button className="clear-btn" onClick={clearGrid}>Clear</button>
+
+
+
 
 
 
