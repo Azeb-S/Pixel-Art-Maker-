@@ -4,12 +4,20 @@ import './App.css'
 const GRID_SIZE = 16
 const DEFAULT_COLOR = '#ffffff' // white unpainted
 
+// Defined at module scope, outside the App component
+const PRESETS = [
+  '#000000', '#ffffff', '#e63946', '#f1a208', '#ffd166',
+  '#06d6a0', '#118ab2', '#7209b7', '#f72585', '#ff8500',
+]
+
 function makeEmptyGrid() {
   return Array.from(
     { length: GRID_SIZE },
     () => Array(GRID_SIZE).fill(DEFAULT_COLOR)
   )
 }
+
+
 
 
 
@@ -33,6 +41,7 @@ function App() {
 
   return (<div className='pixel-art'>
     <h1>Pixel Art Editor</h1>
+   
     <label className="pixel-tools">
       Color
       <input
@@ -43,6 +52,24 @@ function App() {
         onChange={e => setCurrentColor(e.target.value)}
       />
     </label>
+
+      {/* Inside the JSX, beside the color picker: */}
+<div className="pixel-presets">
+  {PRESETS.map(c => (
+    <button
+      key={c}
+      // Add a 'selected' class when this swatch matches the current color
+      className={'preset' + (c === currentColor ? ' selected' : '')}
+      // Set this button's background to the swatch's hex value
+      style={{ background: c }}
+      // Clicking a swatch updates the current color, just like the picker does
+      onClick={() => setCurrentColor(c)}
+      aria-label={`Color ${c}`}
+    />
+  ))}
+</div>
+
+
 
     <div className='pixel-grid'
       style={{ gridTemplateColumns: `repeat(${GRID_SIZE}, 1fr)` }}
